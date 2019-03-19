@@ -223,10 +223,11 @@ describe 'ActiveRecord Obstacle Course' do
     ]
 
     # ----------------------- Using Ruby -------------------------
-    orders = Order.all.sort_by { |order| order.amount }.reverse
+    # orders = Order.all.sort_by { |order| order.amount }.reverse
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
+    orders = Order.order(amount: :desc)
     # Solution goes here
     # ------------------------------------------------------------
 
@@ -242,10 +243,11 @@ describe 'ActiveRecord Obstacle Course' do
     ]
 
     # ----------------------- Using Ruby -------------------------
-    orders = Order.all.sort_by { |order| order.amount }
+    # orders = Order.all.sort_by { |order| order.amount }
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
+    orders = Order.order(:amount)
     # Solution goes here
     # ------------------------------------------------------------
 
@@ -261,10 +263,12 @@ describe 'ActiveRecord Obstacle Course' do
     ]
 
     # ----------------------- Using Ruby -------------------------
-    items = Item.all.map { |item| item unless items_not_included.include?(item) }.compact
+    # items = Item.all.map { |item| item unless items_not_included.include?(item) }.compact
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
+    # binding.pry
+    items = Item.where.not(id: items_not_included)
     # Solution goes here
     # ------------------------------------------------------------
 
@@ -276,11 +280,13 @@ describe 'ActiveRecord Obstacle Course' do
     expected_result = [@item_4, @item_2, @item_5, @item_3]
 
     # ----------------------- Using Ruby -------------------------
-    order = Order.find(@order_3.id)
-    grouped_items = order.items.sort_by { |item| item.name }
+    # order = Order.find(@order_3.id)
+    # grouped_items = order.items.sort_by { |item| item.name }
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
+    order = Order.find(@order_3.id)
+    grouped_items = order.items.group(:name)
     # Solution goes here
     # ------------------------------------------------------------
 
@@ -296,6 +302,7 @@ describe 'ActiveRecord Obstacle Course' do
     # ------------------------------------------------------------
 
     # ------------------ Using ActiveRecord ----------------------
+
     # Solution goes here
     # ------------------------------------------------------------
 
